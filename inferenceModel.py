@@ -12,8 +12,11 @@ class ImageToWordModel(OnnxInferenceModel):
         self.char_list = char_list
 
     def predict(self, image: np.ndarray):
+        # Resize image to model input size
+        # Note: cv2.imread returns BGR, which matches training (CVImage uses BGR)
         image = cv2.resize(image, self.input_shapes[0][1:3][::-1])
 
+        # Convert to float32 (model normalizes internally with x/255)
         image_pred = np.expand_dims(image, axis=0).astype(np.float32)
 
         preds = self.model.run(self.output_names, {self.input_names[0]: image_pred})[0]

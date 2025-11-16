@@ -48,8 +48,8 @@ data_provider = DataProvider(
     transformers=[
         ImageResizer(configs.width, configs.height),
         LabelIndexer(configs.vocab),
-        LabelPadding(max_word_length=configs.max_text_length, padding_value=len(configs.vocab))
-        ],
+        LabelPadding(max_word_length=configs.max_text_length, padding_value=len(configs.vocab)),
+    ],
 )
 # Split the dataset into training and validation sets
 train_data_provider, val_data_provider = data_provider.split(split = 0.9)
@@ -65,8 +65,8 @@ model = train_model(
 
 # Compile the model and print summary
 model.compile(
-    optimizer=tf.keras.optimizers.Adam(learning_rate=configs.learning_rate), 
-    loss=CTCloss(), 
+    optimizer=tf.keras.optimizers.Adam(learning_rate=configs.learning_rate),
+    loss=CTCloss(),
     metrics=[CWERMetric(padding_token=len(configs.vocab))],
     run_eagerly=False
 )
@@ -87,8 +87,7 @@ model.fit(
     train_data_provider,
     validation_data=val_data_provider,
     epochs=configs.train_epochs,
-    callbacks=[earlystopper, checkpoint, trainLogger, reduceLROnPlat, tb_callback, model2onnx],
-    workers=configs.train_workers
+    callbacks=[earlystopper, checkpoint, trainLogger, reduceLROnPlat, tb_callback, model2onnx]
 )
 
 # Save training and validation datasets as csv files

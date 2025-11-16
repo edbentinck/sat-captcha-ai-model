@@ -1,6 +1,11 @@
 node_modules/
 vendor/
 __pycache__
+
+# Python virtual environments
+venv/
+.venv/
+
 model/logs/
 model/logs.log
 model/train.csv

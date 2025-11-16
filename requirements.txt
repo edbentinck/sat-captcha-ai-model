@@ -1,4 +1,4 @@
 mltu==1.2.5
-tensorflow==2.10.0
+tensorflow>=2.15,<3.0
 numpy<2.0
 tf2onnx
